@@ -1,0 +1,28 @@
+def extract(resp):
+    text = resp.upper()
+    matches = re.findall(r'\[\[\s*(HIGH|MEDIUM|LOW)\s*\]\]', text)
+    if matches:
+        return matches[-1]
+    matches = re.findall(r'(?<!\[)\[\s*(HIGH|MEDIUM|LOW)\s*\](?!\])', text)
+    if matches:
+        return matches[-1]
+    patterns = [
+        r'CLASSIF(?:Y|IED|ICATION)\s*(?:AS|:)?\s*(HIGH|MEDIUM|LOW)',
+        r'RISK\s*(?:LEVEL)?\s*(?:IS|:)?\s*(HIGH|MEDIUM|LOW)',
+        r'FINAL\s*(?:ANSWER|RISK)?\s*(?:IS|:)?\s*(HIGH|MEDIUM|LOW)',
+    ]
+    for p in patterns:
+        m = re.search(p, text)
+        if m:
+            return m.group(1)
+    tail = text[-200:]
+    matches = re.findall(r'\b(HIGH|MEDIUM|LOW)\b', tail)
+    if matches:
+        return matches[-1]
+    if 'MALICIOUS' in text or 'MALWARE' in text:
+        return 'HIGH'
+    if 'SUSPICIOUS' in text:
+        return 'MEDIUM'
+    if 'BENIGN' in text or 'NORMAL' in text:
+        return 'LOW'
+    return 'INCONCLUSIVE'

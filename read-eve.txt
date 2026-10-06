@@ -1,0 +1,25 @@
+
+c:\Users\SYN\Documents\soc\sample2>py read-eve.py
+============================================================
+Reading eve.json
+============================================================
+Total events in file: 5250
+
+Total records: 200
+
+By category:
+  ATTACK: 165
+  BENIGN: 35
+
+By signature:
+  Nmap TCP Port Scan Detected: 45
+  SYN Flood DoS Attack Detected: 45
+  SQL Injection Attack Detected: 45
+  HTTP Traffic (Normal): 35
+  ICMP Ping Attack Detected: 16
+  SQL Injection Test: 8
+  Cross-Site Scripting (XSS) Attempt: 6
+
+✅ Saved: C:\Users\SYN\Documents\soc\eve_sample.json
+
+c:\Users\SYN\Documents\soc\sample2>
